@@ -1,0 +1,13 @@
+.error {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.52px;
+  padding: 0px;
+  margin: 0px;
+  width: 358px;
+  height: 35px;
+  border: none;
+  text-align: start;
+  color: #FF0000;
+}

@@ -1,0 +1,17 @@
+.popup__block {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  border-radius: 10px;
+  background-color: #fff;
+  width: 100%;
+  max-width: 430px;
+  padding: 34px 36px 37px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__block {
+    max-width: 282px;
+    padding: 25px 22px;
+  }
+}

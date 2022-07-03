@@ -1,0 +1,13 @@
+.popup__caption {
+  display: grid;
+  justify-self: start;
+  grid-template-columns: max-content;
+  color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.52px;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 10px;
+}

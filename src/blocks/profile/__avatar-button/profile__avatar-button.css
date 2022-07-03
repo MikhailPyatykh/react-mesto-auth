@@ -1,0 +1,27 @@
+.profile__avatar-button {
+  display: flex;
+  background-image: url(../../../images/icon-profile-pen.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0%;
+  transition: opacity 0.6s ease-in-out, background-color 0.6s ease-in-out;
+  z-index: 0;
+}
+
+.profile__avatar-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  box-sizing: content-box;
+  opacity: 100%;
+  transition: opacity 0.6s ease-in-out, background-color 0.6s ease-in-out;
+}

@@ -1,0 +1,9 @@
+.place__likes_numbers {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+  align-self: bottom;
+  padding: 0px;
+  margin: 0px;
+}

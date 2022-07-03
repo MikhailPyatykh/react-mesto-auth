@@ -1,0 +1,27 @@
+.profile {
+  display: grid;
+  grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content) 1fr;
+  grid-template-rows: 1fr;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0px auto;
+  padding: 0px;
+  padding-top: 40px;
+  width: 100%;
+}
+
+@media screen and (max-width: 934px) {
+  .profile {
+    width: 88.125%;
+  }
+}
+
+
+@media screen and (max-width: 880px) {
+  .profile {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    justify-items: center;
+  }
+}
