@@ -22,8 +22,8 @@ function Main(props) {
         </div>
         <div className="profile__info">
           <div>
-            <h1 className="profile__info-fio">{currentUser.name}</h1>
-            <p className="profile__info-occupation">{currentUser.about}</p>
+            <h1 className="profile__info-name">{currentUser.name}</h1>
+            <p className="profile__info-description">{currentUser.about}</p>
           </div>
           <button
             onClick={props.onEditProfile}

@@ -1,0 +1,9 @@
+.header__info {
+  display: flex;
+  font-family: "Inter", Arial, sans-serif;
+  flex-direction: row;
+  padding: 0px;
+  padding-top: 6px;
+  margin: 0px;
+  align-items: flex-start;
+}

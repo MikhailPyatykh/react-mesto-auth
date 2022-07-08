@@ -1,0 +1,12 @@
+.header__user-email {
+  display: flex;
+  align-self: flex-end;
+  color: #ffffff;
+  padding: 0px;
+  margin: 0px;
+  margin-right: 24px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  align-self: flex-start;
+}

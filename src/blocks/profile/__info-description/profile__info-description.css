@@ -1,4 +1,4 @@
-.profile__info-occupation {
+.profile__info-description {
   max-width: 294px;
   color: #fff;
   font-weight: 400;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 880px) {
-  .profile__info-occupation {
+  .profile__info-description {
     max-width: 189px;
     font-weight: 400;
     font-size: 14px;

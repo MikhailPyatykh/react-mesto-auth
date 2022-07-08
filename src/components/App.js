@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
+import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import Register from "./Register";
+import Login from "./Login";
 import api from "../utils/Api";
+import auth from "../utils/Auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { CardsContext } from "../contexts/CardsContext";
 
@@ -17,6 +23,9 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({ name: "", about: "", avatar: "" });
   const [cards, setCards] = useState([]);
@@ -33,6 +42,26 @@ function App() {
         console.error(err);
       });
   }, []);
+
+  //Проверка токена
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  function handleLogin() {}
+
+  function handleRegister(email, password) {
+    auth
+      .register(email, password)
+      .then((data) => (data ? setIsSuccess(true) : setIsSuccess(false)))
+      // .then((data) => console.log(data))
+      .then(() => setIsInfoTooltipPopupOpen(true))
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  function tokenCheck() {}
 
   //Обработка клика по изображению карточки места
   function handleCardClick(cardData) {
@@ -61,6 +90,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
   }
 
   // Функция удаления карточки
@@ -151,60 +181,92 @@ function App() {
   }
 
   return (
-    // <Route
-    // path="/"
-    // element={
-    <div className="page">
-      <CurrentUserContext.Provider value={currentUser}>
-        <CardsContext.Provider value={cards}>
-          <Header />
-          <Main
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            setCards={setCards}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />
-          <Footer />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute path="/" loggedIn={loggedIn}>
+            <div className="page">
+              <CurrentUserContext.Provider value={currentUser}>
+                <CardsContext.Provider value={cards}>
+                  <Header
+                    sign="Выйти"
+                    link="/sign-in"
+                    email="dog@dog.dog"
+                    changeButtonColor={true}
+                  />
+                  <Main
+                    onEditAvatar={handleEditAvatarClick}
+                    onEditProfile={handleEditProfileClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onCardClick={handleCardClick}
+                    setCards={setCards}
+                    cards={cards}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
+                  />
+                  <Footer />
 
-          <ImagePopup
-            card={selectedCard}
-            isOpen={isImagePopupOpen}
-            onClose={closeAllPopups}
-          />
+                  <ImagePopup
+                    card={selectedCard}
+                    isOpen={isImagePopupOpen}
+                    onClose={closeAllPopups}
+                  />
 
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
+                  <EditProfilePopup
+                    isOpen={isEditProfilePopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateUser={handleUpdateUser}
+                  />
 
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-          />
+                  <EditAvatarPopup
+                    isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateAvatar={handleUpdateAvatar}
+                  />
 
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlaceSubmit}
-          />
+                  <AddPlacePopup
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                    onAddPlace={handleAddPlaceSubmit}
+                  />
 
-          <PopupWithForm
-            name="delete-card"
-            title="Вы уверены?"
-            submitText="Да"
-            onClose={closeAllPopups}
-          />
-        </CardsContext.Provider>
-      </CurrentUserContext.Provider>
-    </div>
-    // }
-    // ></Route>
+                  <PopupWithForm
+                    name="delete-card"
+                    title="Вы уверены?"
+                    submitText="Да"
+                    onClose={closeAllPopups}
+                  />
+                </CardsContext.Provider>
+              </CurrentUserContext.Provider>
+            </div>
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/sign-up"
+        element={
+          <div className="page">
+            <Header sign="Войти" link="/sign-in" />
+            <Register handleRegister={handleRegister} />
+            <InfoTooltip
+              isOpen={isInfoTooltipPopupOpen}
+              onClose={closeAllPopups}
+              isSuccess={isSuccess}
+            />
+          </div>
+        }
+      ></Route>
+      <Route
+        path="/sign-in"
+        element={
+          <div className="page">
+            <Header sign="Регистрация" link="/sign-up" />
+            <Login handleLogin={handleLogin} tokenCheck={tokenCheck} />
+          </div>
+        }
+      ></Route>
+    </Routes>
   );
 }
 

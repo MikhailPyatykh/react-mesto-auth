@@ -1,0 +1,36 @@
+.page__submit-btn {
+  font-family: "Inter", Arial, sans-serif;
+  background-color: #fff;
+  border: none;
+  border-radius: 2px;
+  color: #000;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21.78px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 187px;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 358px;
+  height: 50px;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.page__submit-btn:hover {
+  opacity: 0.8;
+  transition: opacity 0.6s ease-in-out;
+}
+
+input.page__input::-webkit-input-placeholder {
+  color: rgba(204, 204, 204);
+} /* webkit */
+input.page__input::-moz-placeholder {
+  color: rgba(204, 204, 204);
+} /* Firefox 19+ */
+input.page__input:-moz-placeholder {
+  color: rgba(204, 204, 204);
+} /* Firefox 18- */
+input.page__input:-ms-input-placeholder {
+  color: rgba(204, 204, 204);
+} /* IE */

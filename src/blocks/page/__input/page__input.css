@@ -1,0 +1,16 @@
+.page__input {
+  background-color: transparent;
+  color: #e5e5e5;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.94px;
+  padding: 0px;
+  margin: 0px;
+  width: 358px;
+  height: 27px;
+  border: none;
+  border-bottom: 2px solid rgba(204, 204, 204);
+  text-align: start;
+  cursor: pointer;
+}
