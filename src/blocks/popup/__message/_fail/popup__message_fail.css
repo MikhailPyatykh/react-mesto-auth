@@ -1,0 +1,15 @@
+.popup__message_fail {
+  display: flex;
+  background-color: transparent;
+  background-size: 120px 120px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../../../../images/icon-fail.svg);
+  width: 120px;
+  height: 120px;
+  padding: 0px;
+  margin: 0px;
+  align-self: center;
+  box-sizing: border-box;
+  border: 0px;
+}

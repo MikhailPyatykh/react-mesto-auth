@@ -12,21 +12,13 @@ function InfoTooltip(props) {
         <div className="popup__block">
           {props.isSuccess ? (
             <div className="popup__block">
-              <img
-                className="popup__picture"
-                src=""
-                alt="Информационная картинка успешной регистрации"
-              />
-              <div className="popup__message">Вы успешно зарегистрировались!</div>
+              <div className="popup__message popup__message_success">
+                Вы успешно зарегистрировались!
+              </div>
             </div>
           ) : (
             <div className="popup__block">
-              <img
-                className="popup__picture"
-                src=""
-                alt="Информационная картинка ошибки при регистрации"
-              />
-              <div className="popup__message">
+              <div className="popup__message popup__message_fail">
                 Что-то пошло не так! Попробуйте ещё раз.
               </div>
             </div>
