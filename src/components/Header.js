@@ -8,10 +8,10 @@ function Header(props) {
         <div className="header__user-email">{props.email}</div>
         <Link
           to={props.link}
+          onClick={props.handleLogout}
           className={`header__sign-btn ${
             props.changeButtonColor ? "header__sign-btn_grey" : ""
           }`}
-          // <Link to={user.id}>{user.name}</Link>
         >
           {props.sign}
         </Link>

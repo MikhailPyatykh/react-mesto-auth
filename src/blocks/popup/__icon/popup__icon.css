@@ -1,15 +1,14 @@
-.popup__message_success {
+.popup__icon {
   display: flex;
   background-color: transparent;
   background-size: 120px 120px;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(../../../../images/icon-success.svg);
   width: 120px;
   height: 120px;
   padding: 0px;
-  margin: 0px;
-  align-self: center;
+  margin: 0px auto;
+  margin-top: 26px;
   box-sizing: border-box;
   border: 0px;
 }

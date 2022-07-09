@@ -43,7 +43,7 @@ class Auth {
 
   getContent(token) {
     return this._makeRequest(
-      fetch(`${this._config.baseUrl}/signin`, {
+      fetch(`${this._config.baseUrl}/users/me`, {
         method: "GET",
         headers: {
           Accept: "application/json",

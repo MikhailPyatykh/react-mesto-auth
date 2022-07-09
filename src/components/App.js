@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -25,10 +25,71 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState({ email: "" });
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({ name: "", about: "", avatar: "" });
   const [cards, setCards] = useState([]);
+  const navigate = useNavigate();
+
+  // Функция обработки регистрации данных пользователя
+  function handleRegister(email, password) {
+    auth
+      .register(email, password)
+      //Проверяем ответ от сервера
+      .then((data) => (data ? setIsSuccess(true) : setIsSuccess(false)))
+      .then(() => setIsInfoTooltipPopupOpen(true))
+      .catch((err) => {
+        // console.error(err);
+        console.log("Логин Швах");
+      });
+  }
+
+  // Функция обработки входа пользователя
+  function handleLogin(email, password) {
+    auth
+      .login(email, password)
+      .then((data) => {
+        localStorage.setItem("token", data.token);
+        setEmail(email);
+        setLoggedIn(true);
+        navigate("/");
+      })
+      .catch((err) => {
+        err && setIsInfoTooltipPopupOpen(true);
+        console.log(err);
+      });
+  }
+
+  //Функция проверки токена
+  function tokenCheck() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      auth
+        .getContent(token)
+        .then((res) => {
+          const { email } = res.data;
+          setEmail(email);
+          setLoggedIn(true);
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(`${err}`);
+        });
+    }
+  }
+
+  //Проверка токена
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  //Функция обработки выхода пользователя
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setEmail({ email: "" });
+    setLoggedIn(false);
+  }
 
   //Запрос на сервер данных пользователя и списка карточек
   useEffect(() => {
@@ -42,26 +103,6 @@ function App() {
         console.error(err);
       });
   }, []);
-
-  //Проверка токена
-  useEffect(() => {
-    tokenCheck();
-  }, []);
-
-  function handleLogin() {}
-
-  function handleRegister(email, password) {
-    auth
-      .register(email, password)
-      .then((data) => (data ? setIsSuccess(true) : setIsSuccess(false)))
-      // .then((data) => console.log(data))
-      .then(() => setIsInfoTooltipPopupOpen(true))
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
-  function tokenCheck() {}
 
   //Обработка клика по изображению карточки места
   function handleCardClick(cardData) {
@@ -192,8 +233,9 @@ function App() {
                   <Header
                     sign="Выйти"
                     link="/sign-in"
-                    email="dog@dog.dog"
+                    email={email}
                     changeButtonColor={true}
+                    handleLogout={handleLogout}
                   />
                   <Main
                     onEditAvatar={handleEditAvatarClick}
@@ -262,7 +304,12 @@ function App() {
         element={
           <div className="page">
             <Header sign="Регистрация" link="/sign-up" />
-            <Login handleLogin={handleLogin} tokenCheck={tokenCheck} />
+            <Login handleLogin={handleLogin} />
+            <InfoTooltip
+              isOpen={isInfoTooltipPopupOpen}
+              onClose={closeAllPopups}
+              isSuccess={isSuccess}
+            />
           </div>
         }
       ></Route>

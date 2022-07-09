@@ -9,21 +9,17 @@ function InfoTooltip(props) {
           className="popup__close-btn"
           onClick={props.onClose}
         ></button>
-        <div className="popup__block">
-          {props.isSuccess ? (
-            <div className="popup__block">
-              <div className="popup__message popup__message_success">
-                Вы успешно зарегистрировались!
-              </div>
-            </div>
-          ) : (
-            <div className="popup__block">
-              <div className="popup__message popup__message_fail">
-                Что-то пошло не так! Попробуйте ещё раз.
-              </div>
-            </div>
-          )}
-        </div>
+        {props.isSuccess ? (
+          <div className="popup__block">
+            <div className="popup__icon popup__icon_success"></div>
+            <div className="popup__message">Вы успешно зарегистрировались!</div>
+          </div>
+        ) : (
+          <div className="popup__block">
+            <div className="popup__icon popup__icon_fail"></div>
+            <div className="popup__message">Что-то пошло не так! Попробуйте ещё раз.</div>
+          </div>
+        )}
       </div>
     </section>
   );
