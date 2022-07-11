@@ -39,14 +39,10 @@ function App() {
       //Проверяем ответ от сервера
       .then((data) =>
         data
-          ? (setIsSuccess(true), setIsInfoTooltipPopupOpen(true))
+          ? (setIsSuccess(true), setIsInfoTooltipPopupOpen(true), navigate("/sign-in"))
           : (setIsSuccess(false), setIsInfoTooltipPopupOpen(true))
       );
   }
-
-  useEffect(() => {
-    navigate("/sign-in");
-  }, [isSuccess]);
 
   // Функция обработки входа пользователя
   function handleLogin(email, password) {
